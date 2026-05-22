@@ -1,0 +1,8 @@
+            <!-- Navigation Bar - Une seule ligne défilable -->
+            <nav class="flex gap-3 text-xs font-bold text-emerald-700 border-t border-slate-200 pt-3 overflow-x-auto whitespace-nowrap pb-2">
+                <a href="#commentcamarche" class="hover:text-emerald-900 transition-colors">📋 Comment ça marche</a>
+                <a href="#pourqui" class="hover:text-emerald-900 transition-colors">👥 Pour qui</a>
+                <a href="#apropos" class="hover:text-emerald-900 transition-colors">ℹ️ À propos</a>
+                <a href="#temoignages" class="hover:text-emerald-900 transition-colors">🎤 Témoignages</a>
+                <a href="#contact" class="hover:text-emerald-900 transition-colors">📞 Contact</a>
+            </nav>
