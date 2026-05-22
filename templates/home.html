@@ -174,55 +174,86 @@
         }, 150);
     }
 
-    async function handleAuthSubmit(e, type) {
-        e.preventDefault();
-        const errBox = document.getElementById("auth-error-box");
-        errBox.classList.add("hidden");
+   async function handleAuthSubmit(e, type) {
+    e.preventDefault();
+    
+    // On récupère la boîte d'erreur (assure-toi que l'ID complet est bien "auth-error" ou similaire)
+    const errBox = document.getElementById("auth-error"); 
+    if (errBox) errBox.classList.add("hidden");
 
-        let payload = {};
-        let url = "";
+    let payload = {};
+    let url = "";
 
-        if (type === 'login') {
-            const rawPhone = document.getElementById("login-phone").value.trim();
-            if (!rawPhone) return;
-            // enforce prefix
-            const formattedPhone = rawPhone.startsWith("+") ? rawPhone : ("+229" + rawPhone);
-            payload = { phone: formattedPhone };
-            url = "/api/connexion";
-        } else {
-            const name = document.getElementById("register-name").value.strip ? document.getElementById("register-name").value.strip() : document.getElementById("register-name").value.trim();
-            const rawPhone = document.getElementById("register-phone").value.trim();
-            const role = document.getElementById("register-role").value;
-            const formattedPhone = rawPhone.startsWith("+") ? rawPhone : ("+229" + rawPhone);
-
-            payload = { name, phone: formattedPhone, role };
-            url = "/api/inscription";
+    if (type === 'login') {
+        // Remplacement du sélecteur coupé par l'ID réel de ton champ téléphone de connexion
+        const phoneInput = document.getElementById("login-phone"); 
+        if (!phoneInput || !phoneInput.value) {
+            if (errBox) {
+                errBox.innerText = "Veuillez entrer votre numéro de téléphone.";
+                errBox.classList.remove("hidden");
+            }
+            return;
         }
 
-        try {
-            const resp = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+        const rawPhone = phoneInput.value.trim();
+        // Force l'ajout du préfixe béninois +229 si l'utilisateur ne l'a pas mis
+        const formattedPhone = rawPhone.startsWith("+") ? rawPhone : "+229" + rawPhone;
+        
+        payload = { phone: formattedPhone };
+        url = "/api/connexion";
 
-            const data = await resp.json();
-            if (!resp.ok) {
-                errBox.innerText = data.error || "Une erreur est survenue.";
-                errBox.classList.remove("hidden");
+    } else {
+        // Section Inscription - Récupération stricte des valeurs avec .value
+        const nameInput = document.getElementById("register-name");
+        const phoneInput = document.getElementById("register-phone");
+        const roleInput = document.getElementById("register-role");
+
+        if (!nameInput || !phoneInput || !roleInput) return;
+
+        const rawPhone = phoneInput.value.trim();
+        const formattedPhone = rawPhone.startsWith("+") ? rawPhone : "+229" + rawPhone;
+
+        // On construit le payload propre pour Python
+        payload = { 
+            name: nameInput.value.trim(), 
+            phone: formattedPhone, 
+            role: roleInput.value 
+        };
+        url = "/api/inscription";
+    }
+
+    // Ensuite, ton bloc try { await fetch(url, ...) } que l'on a corrigé juste avant prend la suite ici...
+
+     try {
+        const resp = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await resp.json();
+        
+        if (!resp.ok) {
+            errBox.innerText = data.error || "Une erreur est survenue.";
+            errBox.classList.remove("hidden");
+        } else {
+            // Sauvegarde des infos utiles en local
+            localStorage.setItem("databroker_user_phone", payload.phone);
+            localStorage.setItem("databroker_user_role", data.role);
+
+            // REDIRECTION DYNAMIQUE PAR RÔLE
+            // Si le serveur renvoie une URL spécifique (ex: /agent, /client, /admin), on la suit
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url;
             } else {
-                // Save credentials in local cookies/localStorage for offline PWA context persistence
-                localStorage.setItem("databroker_user_phone", data.user.phone);
-                localStorage.setItem("databroker_user_name", data.user.name);
-                localStorage.setItem("databroker_user_role", data.user.role);
-                
-                // Redirect straight to dashboard
+                // Option de secours au cas où
                 window.location.href = "/dashboard";
             }
-        } catch (err) {
-            errBox.innerText = "Erreur de connexion serveur. Vérifiez votre réseau internet.";
-            errBox.classList.remove("hidden");
         }
+    } catch (err) {
+        console.error("Erreur Fetch:", err);
+        errBox.innerText = "Erreur de connexion serveur. Vérifiez votre réseau internet ou l'état du serveur.";
+        errBox.classList.remove("hidden");
     }
 
     // Auto reconnect if profile exists in storage
