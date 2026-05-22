@@ -1,8 +1,19 @@
-from app import create_app
+from flask import Flask, render_template
 
-app = create_app()
+app = Flask(__name__, template_folder='templates', static_folder='static')
 
-if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 3000))
-    app.run(host="0.0.0.0", port=port, debug=True)
+@app.route('/')
+@app.route('/index')
+def public():
+    return render_template('public.html')
+
+@app.route('/login')
+def login():
+    return render_template('home.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+if __name__ == '__main__':
+    app.run(debug=False)
