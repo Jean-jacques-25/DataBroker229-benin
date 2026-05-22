@@ -3,7 +3,7 @@ services:
     name: databroker229-web
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn wsgi
+    startCommand: gunicorn wsgi:application
     envVars:
       - key: SECRET_KEY
         generateValue: true
