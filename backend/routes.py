@@ -1,10 +1,10 @@
 import datetime
 import json
 from flask import Blueprint, request, jsonify, Response
-from app import db
-from app.models import User, Mission, Submission, WithdrawalRequest, SupportTicket, FraudLog, PlatformConfig
-from app.utils import get_gps_distance, string_hash
-from app.services import suggest_dynamic_fields, chat_helper_reply
+from backend import db
+from backend.models import User, Mission, Submission, WithdrawalRequest, SupportTicket, FraudLog, PlatformConfig
+from backend.utils import get_gps_distance, string_hash
+from backend.services import suggest_dynamic_fields, chat_helper_reply
 
 api = Blueprint("api", __name__, url_prefix="/api")
 

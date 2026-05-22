@@ -1,6 +1,6 @@
 import datetime
 import json
-from app import db
+from backend import db
 
 class User(db.Model):
     __tablename__ = "users"
