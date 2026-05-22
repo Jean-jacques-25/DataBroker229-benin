@@ -10,25 +10,6 @@ app = Flask(__name__,
 
 CORS(app)
 
-# Configuration
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///databroker229.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Initialize database - UNE SEULE FOIS
-from backend import db
-db.init_app(app)
-
-# Create tables
-with app.app_context():
-    db.create_all()
-
-# Import backend routes (Blueprint) - APRÈS db.init_app
-from backend.routes import api
-
-# Register Blueprint
-app.register_blueprint(api)
-
 @app.route('/')
 @app.route('/index')
 def public():
@@ -41,6 +22,10 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/api/test')
+def api_test():
+    return {'status': 'ok', 'message': 'API test endpoint'}
 
 if __name__ == '__main__':
     app.run(debug=False)
