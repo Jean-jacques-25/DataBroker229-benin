@@ -1,6 +1,4 @@
 from flask import Flask, render_template
-from flask_cors import CORS
-import os
 
 app = Flask(__name__, 
     template_folder='templates', 
@@ -8,25 +6,6 @@ app = Flask(__name__,
     static_url_path='/static'
 )
 
-CORS(app)
-
-# Configuration
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-production')
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///databroker229.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# Initialize database - WITHOUT creating tables on startup
-from backend import db
-db.init_app(app)
-
-# Import and register API Blueprint
-try:
-    from backend.routes import api
-    app.register_blueprint(api)
-except Exception as e:
-    print(f"Warning: Could not load API routes: {e}")
-
-# Page routes
 @app.route('/')
 @app.route('/index')
 def public():
@@ -39,6 +18,10 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
+
+@app.route('/api/test')
+def api_test():
+    return {'status': 'ok', 'message': 'API test'}
 
 if __name__ == '__main__':
     app.run(debug=False)
