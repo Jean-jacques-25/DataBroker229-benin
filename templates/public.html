@@ -6,9 +6,8 @@
 <div class="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-white to-slate-50">
 
     <!-- Header avec Navbar -->
-    <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
+    <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-6 py-4">
-            <!-- Top Bar: Logo + Bouton -->
             <div class="flex justify-between items-center mb-3">
                 <div class="flex items-center space-x-3">
                     <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-lg">
@@ -19,13 +18,12 @@
                         <p class="text-[8px] font-bold text-emerald-600 uppercase tracking-wider">BÉNIN</p>
                     </div>
                 </div>
-                <a href="/login" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2 px-6 rounded-lg text-xs uppercase tracking-widest transition-all shadow-lg">
+                <button onclick="openAuthModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2 px-6 rounded-lg text-xs uppercase tracking-widest transition-all shadow-lg active:scale-95">
                     Connexion
-                </a>
+                </button>
             </div>
 
-            <!-- Navigation Bar - Une seule ligne défilable -->
-            <nav class="flex gap-3 text-xs font-bold text-emerald-700 border-t border-slate-200 pt-3 overflow-x-auto whitespace-nowrap pb-2 scrollbar-hide">
+            <nav class="flex gap-3 text-xs font-bold text-emerald-700 border-t border-slate-200 pt-3 overflow-x-auto whitespace-nowrap pb-2">
                 <a href="#commentcamarche" class="hover:text-emerald-900 transition-colors">📋 Comment ça marche</a>
                 <a href="#pourqui" class="hover:text-emerald-900 transition-colors">👥 Pour qui</a>
                 <a href="#apropos" class="hover:text-emerald-900 transition-colors">ℹ️ À propos</a>
@@ -35,255 +33,146 @@
         </div>
     </header>
 
-<section class="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-8 md:py-20 relative block">
-        <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
-                    </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#grid)" />
-            </svg>
-        </div>
-
-        <div class="max-w-4xl mx-auto relative z-10">
-            <div class="border-2 border-emerald-400 rounded-3xl p-6 md:p-12 space-y-6 bg-emerald-600/10 backdrop-blur-sm text-white text-center">
-                <div class="inline-block bg-emerald-600/30 border border-emerald-400 px-4 py-2 rounded-full mx-auto">
-                    <p class="text-emerald-300 font-black text-xs uppercase tracking-widest">
-                        🇧🇯 Fait au Bénin, pour le Bénin
-                    </p>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1">
+        <!-- Hero Section -->
+        <section class="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-4 py-16 md:py-24">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <div class="inline-block bg-emerald-600/20 border-2 border-emerald-400 rounded-full px-4 py-2">
+                    <span class="text-emerald-300 font-bold text-sm">🇧🇯 Fait au Bénin, pour le Bénin</span>
                 </div>
-
-                <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-                    Les <span class="text-emerald-300">yeux</span> de votre entreprise sur les marchés béninois
+                <h2 class="text-4xl md:text-5xl font-black text-white leading-tight">
+                    Les <span class="text-emerald-400">yeux</span> de votre entreprise sur les marchés béninois
                 </h2>
-
-                <p class="text-sm md:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-lg text-slate-300">
                     Données terrain précises — prix, disponibilité produits, photos géolocalisées — collectées en temps réel par nos agents sur Dantokpa, Ouando et tous les marchés du Bénin.
                 </p>
-
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-black py-3 px-8 rounded-lg uppercase tracking-widest text-sm transition-all shadow-lg active:scale-95">
+                    <button onclick="openAuthModal()" class="bg-yellow-400 hover:bg-yellow-500 text-slate-900 font-black py-3 px-8 rounded-lg uppercase tracking-widest transition-all shadow-lg active:scale-95">
                         Commencer
                     </button>
-                    <a href="#commentcamarche" class="border-2 border-emerald-400 text-emerald-300 hover:bg-emerald-500/20 font-black py-3 px-8 rounded-lg uppercase tracking-widest text-sm transition-all">
+                    <button onclick="document.getElementById('pourqui').scrollIntoView({behavior:'smooth'})" class="border-2 border-emerald-400 text-emerald-400 hover:bg-emerald-400/10 font-black py-3 px-8 rounded-lg uppercase tracking-widest transition-all">
                         En savoir plus
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Main Content -->
-    <main class="flex-1 max-w-6xl mx-auto w-full px-6 py-16 space-y-20">
-
-        <!-- COMMENT ÇA MARCHE -->
-        <section id="commentcamarche" class="space-y-8">
-            <div class="text-center space-y-2">
-                <h3 class="text-4xl font-black text-slate-900">Comment ça Marche</h3>
-                <p class="text-slate-600">6 étapes simples pour transformer vos données</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">1</div>
-                    <h4 class="text-lg font-black text-slate-900">Inscription Rapide</h4>
-                    <p class="text-sm text-slate-600">Créez votre compte avec votre numéro WhatsApp en quelques secondes.</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">2</div>
-                    <h4 class="text-lg font-black text-slate-900">Consultez les Missions</h4>
-                    <p class="text-sm text-slate-600">Parcourez les missions d'études de marché ouvertes près de vous.</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">3</div>
-                    <h4 class="text-lg font-black text-slate-900">Collectez les Données</h4>
-                    <p class="text-sm text-slate-600">Formulaire + Photo + GPS. Simple et transparent.</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">4</div>
-                    <h4 class="text-lg font-black text-slate-900">Validation Automatique</h4>
-                    <p class="text-sm text-slate-600">Anti-fraude avancée : GPS, images, doublons détectés.</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">5</div>
-                    <h4 class="text-lg font-black text-slate-900">Gagnez des Points</h4>
-                    <p class="text-sm text-slate-600">500-1500 FCFA par collecte validée. Bonus par échelon.</p>
-                </div>
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 space-y-3 hover:border-emerald-400 transition-all">
-                    <div class="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-700 font-black text-lg">6</div>
-                    <h4 class="text-lg font-black text-slate-900">Retirez vos Gains</h4>
-                    <p class="text-sm text-slate-600">MTN MoMo, Moov Money, Celtiis Cash. Minimum 50 points.</p>
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- POUR QUI -->
-        <section id="pourqui" class="space-y-8">
-            <div class="text-center space-y-2">
-                <h3 class="text-4xl font-black text-slate-900">Pour Qui ?</h3>
-                <p class="text-slate-600">3 rôles, 3 opportunités</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-300 rounded-2xl p-6 space-y-4">
-                    <p class="text-4xl">👤</p>
-                    <h4 class="text-xl font-black text-slate-900">Agents Collecteurs</h4>
-                    <ul class="text-sm text-slate-700 space-y-2">
-                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-black">✓</span><span>Gagnez 500-1500 FCFA/formulaire</span></li>
-                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-black">✓</span><span>Travaillez à votre rythme</span></li>
-                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-black">✓</span><span>Bonus par échelon (BRONZE → ÉLITE)</span></li>
-                        <li class="flex items-start gap-2"><span class="text-emerald-600 font-black">✓</span><span>Retrait sécurisé MoMo</span></li>
-                    </ul>
+        <!-- Comment ça marche -->
+        <section id="commentcamarche" class="max-w-6xl mx-auto px-4 py-16">
+            <h3 class="text-3xl font-black text-slate-900 mb-12 text-center">Comment ça marche</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                    <div class="text-4xl">1️⃣</div>
+                    <h4 class="font-black text-slate-900">Créer une mission</h4>
+                    <p class="text-slate-600 text-sm">Vous décrivez les données que vous avez besoin de collecter sur un marché donné.</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-300 rounded-2xl p-6 space-y-4">
-                    <p class="text-4xl">🏢</p>
-                    <h4 class="text-xl font-black text-slate-900">Clients Sponsors</h4>
-                    <ul class="text-sm text-slate-700 space-y-2">
-                        <li class="flex items-start gap-2"><span class="text-blue-600 font-black">✓</span><span>Données géolocalisées fiables</span></li>
-                        <li class="flex items-start gap-2"><span class="text-blue-600 font-black">✓</span><span>Questionnaires générés par IA</span></li>
-                        <li class="flex items-start gap-2"><span class="text-blue-600 font-black">✓</span><span>Rapports Excel complets</span></li>
-                        <li class="flex items-start gap-2"><span class="text-blue-600 font-black">✓</span><span>Commission fixe 40%</span></li>
-                    </ul>
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                    <div class="text-4xl">2️⃣</div>
+                    <h4 class="font-black text-slate-900">Nos agents collectent</h4>
+                    <p class="text-slate-600 text-sm">Les agents vont sur le terrain, prennent des photos, relèvent les prix et dispo.</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6 space-y-4 text-white">
-                    <p class="text-4xl">👨‍💼</p>
-                    <h4 class="text-xl font-black">Administrateurs</h4>
-                    <ul class="text-sm text-slate-200 space-y-2">
-                        <li class="flex items-start gap-2"><span class="text-yellow-400 font-black">✓</span><span>Validation des collectes</span></li>
-                        <li class="flex items-start gap-2"><span class="text-yellow-400 font-black">✓</span><span>Gestion des retraits</span></li>
-                        <li class="flex items-start gap-2"><span class="text-yellow-400 font-black">✓</span><span>Monitoring anti-fraude</span></li>
-                        <li class="flex items-start gap-2"><span class="text-yellow-400 font-black">✓</span><span>Tableaux analytiques</span></li>
-                    </ul>
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+                    <div class="text-4xl">3️⃣</div>
+                    <h4 class="font-black text-slate-900">Vous recevez les données</h4>
+                    <p class="text-slate-600 text-sm">Téléchargez les résultats en CSV, analysez et prenez vos décisions.</p>
                 </div>
             </div>
         </section>
 
-        <!-- À PROPOS -->
-        <section id="apropos" class="bg-white border border-slate-200 rounded-3xl p-8 md:p-12 space-y-6">
-            <h3 class="text-3xl font-black text-slate-900">À Propos</h3>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="space-y-4">
-                    <p class="text-slate-700 leading-relaxed">
-                        <strong>DataBroker229</strong> est la plateforme de crowdsourcing de données terrain qui transforme comment les entreprises béninoises collectent des informations commerciales. Nous connectons les collecteurs passionnés avec les sponsors d'études de marché fiables.
-                    </p>
-                    <p class="text-slate-700 leading-relaxed">
-                        Avec des technologies avancées d'<strong>anti-fraude</strong> (GPS Haversine, analyse d'images IA, détection de doublons), nous garantissons la qualité absolue des données. Chaque soumission est validée selon des critères stricts.
-                    </p>
-                    <p class="text-slate-700 leading-relaxed">
-                        Notre mission : <strong>Démocratiser l'accès aux données fiables</strong> tout en créant des opportunités d'emploi durables pour les collecteurs locaux béninois.
-                    </p>
+        <!-- Pour qui -->
+        <section id="pourqui" class="max-w-6xl mx-auto px-4 py-16">
+            <h3 class="text-3xl font-black text-slate-900 mb-12 text-center">Pour qui</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border-l-4 border-emerald-600 rounded-xl p-6 space-y-4">
+                    <h4 class="font-black text-emerald-900 text-lg">👤 Pour les Agents</h4>
+                    <p class="text-emerald-800 text-sm">Gagnez de l'argent en collectant des données. Flexible, rémunéré justement.</p>
                 </div>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="bg-emerald-50 p-4 rounded-lg text-center border border-emerald-200">
-                        <p class="text-2xl font-black text-emerald-600">500+</p>
-                        <p class="text-xs font-bold text-slate-600 uppercase mt-2">Collecteurs</p>
-                    </div>
-                    <div class="bg-emerald-50 p-4 rounded-lg text-center border border-emerald-200">
-                        <p class="text-2xl font-black text-emerald-600">50+</p>
-                        <p class="text-xs font-bold text-slate-600 uppercase mt-2">Missions</p>
-                    </div>
-                    <div class="bg-emerald-50 p-4 rounded-lg text-center border border-emerald-200">
-                        <p class="text-2xl font-black text-emerald-600">10k+</p>
-                        <p class="text-xs font-bold text-slate-600 uppercase mt-2">Données</p>
-                    </div>
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-600 rounded-xl p-6 space-y-4">
+                    <h4 class="font-black text-blue-900 text-lg">📊 Pour les Clients</h4>
+                    <p class="text-blue-800 text-sm">Obtenez des données terrain fiables pour prendre de meilleures décisions commerciales.</p>
+                </div>
+                <div class="bg-gradient-to-br from-slate-100 to-slate-200 border-l-4 border-slate-700 rounded-xl p-6 space-y-4">
+                    <h4 class="font-black text-slate-900 text-lg">🛡️ Pour les Admins</h4>
+                    <p class="text-slate-700 text-sm">Gérez la plateforme, validez les collectes, modérez les contenus.</p>
                 </div>
             </div>
         </section>
 
-        <!-- TÉMOIGNAGES -->
-        <section id="temoignages" class="space-y-8">
-            <div class="text-center space-y-2">
-                <h3 class="text-4xl font-black text-slate-900">Témoignages</h3>
-                <p class="text-slate-600">Ce disent nos utilisateurs satisfaits</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-all">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center font-black text-emerald-700 text-sm">KS</div>
-                        <div>
-                            <p class="font-black text-slate-900 text-sm">Koffi Saliou</p>
-                            <p class="text-xs text-slate-500">Agent, Cotonou</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-600 italic">"450,000 FCFA en 3 mois. L'app est simple, retraits MoMo rapides !"</p>
-                    <div class="flex gap-1 text-yellow-400 mt-3">⭐⭐⭐⭐⭐</div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-all">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-black text-blue-700 text-sm">AM</div>
-                        <div>
-                            <p class="font-black text-slate-900 text-sm">Aminata Moussa</p>
-                            <p class="text-xs text-slate-500">Client, Cotonou</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-600 italic">"500 données en 5 jours. Rapports précis et géolocalisés. Meilleur que les agences !"</p>
-                    <div class="flex gap-1 text-yellow-400 mt-3">⭐⭐⭐⭐⭐</div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-all">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-slate-300 rounded-full flex items-center justify-center font-black text-slate-700 text-sm">JD</div>
-                        <div>
-                            <p class="font-black text-slate-900 text-sm">Jean-Désiré</p>
-                            <p class="text-xs text-slate-500">Admin</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-600 italic">"Plateforme robuste. Anti-fraude fonctionne parfaitement. Outil professionnel de qualité."</p>
-                    <div class="flex gap-1 text-yellow-400 mt-3">⭐⭐⭐⭐⭐</div>
-                </div>
-
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-all">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center font-black text-emerald-700 text-sm">NK</div>
-                        <div>
-                            <p class="font-black text-slate-900 text-sm">Nadia Kouassi</p>
-                            <p class="text-xs text-slate-500">Agente, Porto-Novo</p>
-                        </div>
-                    </div>
-                    <p class="text-sm text-slate-600 italic">"Calcul automatique des gains par échelon. Atteint SILVER ! Merci DataBroker229."</p>
-                    <div class="flex gap-1 text-yellow-400 mt-3">⭐⭐⭐⭐⭐</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="contact" class="bg-gradient-to-br from-emerald-600 to-emerald-700 rounded-3xl p-8 md:p-12 text-white space-y-8">
-            <div>
-                <h3 class="text-3xl font-black mb-2">Nous Contacter</h3>
-                <p class="text-emerald-100">Support 24/7 en français béninois</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8">
+        <!-- À propos -->
+        <section id="apropos" class="max-w-4xl mx-auto px-4 py-16 text-center space-y-6">
+            <h3 class="text-3xl font-black text-slate-900">À propos</h3>
+            <p class="text-slate-600 leading-relaxed">
+                DataBroker229 est une plateforme de crowdsourcing de données terrain au Bénin. Notre mission : mettre en relation les entreprises qui ont besoin de données fiables avec une communauté d'agents collecteurs sur le terrain.
+            </p>
+            <div class="grid grid-cols-3 gap-6 mt-8">
                 <div class="space-y-2">
-                    <p class="text-sm font-bold opacity-80 uppercase tracking-wide">WhatsApp</p>
-                    <a href="https://wa.me/22955256871" target="_blank" class="text-2xl font-black hover:text-emerald-100 transition-colors">
-                        +229 55 25 6871
-                    </a>
+                    <p class="text-3xl font-black text-emerald-600">500+</p>
+                    <p class="text-sm text-slate-600">Collectes réalisées</p>
                 </div>
                 <div class="space-y-2">
-                    <p class="text-sm font-bold opacity-80 uppercase tracking-wide">Email</p>
-                    <a href="mailto:jeanjacquesaguin30@gmail.com" class="text-lg font-black hover:text-emerald-100 transition-colors break-all">
-                        jeanjacquesaguin30@gmail.com
-                    </a>
+                    <p class="text-3xl font-black text-emerald-600">50+</p>
+                    <p class="text-sm text-slate-600">Agents actifs</p>
+                </div>
+                <div class="space-y-2">
+                    <p class="text-3xl font-black text-emerald-600">10k+</p>
+                    <p class="text-sm text-slate-600">Points générés</p>
                 </div>
             </div>
         </section>
 
+        <!-- Témoignages -->
+        <section id="temoignages" class="max-w-6xl mx-auto px-4 py-16">
+            <h3 class="text-3xl font-black text-slate-900 mb-12 text-center">Témoignages</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-3">
+                    <p class="text-yellow-400">⭐⭐⭐⭐⭐</p>
+                    <p class="text-slate-600 italic">"DataBroker m'a permis de gagner de l'argent facilement. Les missions sont claires et bien payées!"</p>
+                    <p class="font-black text-slate-900">- Koffi, Agent</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-3">
+                    <p class="text-yellow-400">⭐⭐⭐⭐⭐</p>
+                    <p class="text-slate-600 italic">"Les données que j'ai reçues étaient exactes et à jour. Vraiment utile pour mes décisions!"</p>
+                    <p class="font-black text-slate-900">- Jean-Jacques, Client</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-3">
+                    <p class="text-yellow-400">⭐⭐⭐⭐⭐</p>
+                    <p class="text-slate-600 italic">"Plateforme fiable et transparente. Excellente pour notre entreprise!"</p>
+                    <p class="font-black text-slate-900">- Marie, Client</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6 space-y-3">
+                    <p class="text-yellow-400">⭐⭐⭐⭐⭐</p>
+                    <p class="text-slate-600 italic">"Je recommande à tous les agents. Paiement rapide et équitable!"</p>
+                    <p class="font-black text-slate-900">- Alice, Agent</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="w-full bg-gradient-to-br from-emerald-500 to-emerald-600 px-4 py-16">
+            <div class="max-w-2xl mx-auto text-center text-white space-y-6">
+                <h3 class="text-3xl font-black">Questions ? Contactez-nous</h3>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://wa.me/22955256871" class="bg-white text-emerald-600 font-black py-3 px-6 rounded-lg hover:bg-emerald-50 transition-all">
+                        💬 WhatsApp
+                    </a>
+                    <a href="mailto:jeanjacquesaguin30@gmail.com" class="bg-white text-emerald-600 font-black py-3 px-6 rounded-lg hover:bg-emerald-50 transition-all">
+                        📧 Email
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-6 text-center text-slate-500 text-xs border-t border-slate-200 bg-white space-y-1">
-        <p class="font-bold">DataBroker229 🇧🇯 — Registre du Commerce de Cotonou</p>
-        <p>Support : jeanjacquesaguin30@gmail.com | WhatsApp: +229 55256871</p>
+    <footer class="w-full bg-slate-900 text-white px-4 py-8 text-center">
+        <p class="font-black text-sm">DataBroker229 🇧🇯 — Registre du Commerce de Cotonou</p>
     </footer>
-
 </div>
-{% endblock %}
 
 <!-- AUTH MODAL -->
 <div id="authModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-96 overflow-y-auto">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
     
     <!-- Modal Header -->
     <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white p-6 text-center space-y-2 sticky top-0 z-10">
@@ -372,7 +261,7 @@
 
     <!-- Close Button -->
     <div class="flex justify-center pb-4">
-      <button onclick="closeAuthModal()" class="text-slate-500 hover:text-slate-700 font-black">✕ Fermer</button>
+      <button type="button" onclick="closeAuthModal()" class="text-slate-500 hover:text-slate-700 font-black">✕ Fermer</button>
     </div>
   </div>
 </div>
@@ -395,35 +284,24 @@ function toggleAuthTab(tab) {
   if (tab === 'login') {
     loginForm.style.display = "block";
     registerForm.style.display = "none";
-    loginTab.classList.add("bg-white", "shadow-sm", "text-slate-900");
-    loginTab.classList.remove("bg-transparent", "text-slate-600");
-    registerTab.classList.remove("bg-white", "shadow-sm", "text-slate-900");
-    registerTab.classList.add("bg-transparent", "text-slate-600");
+    loginTab.classList.add("bg-white", "shadow-sm");
+    loginTab.classList.remove("bg-transparent");
+    registerTab.classList.remove("bg-white", "shadow-sm");
+    registerTab.classList.add("bg-transparent");
   } else {
     loginForm.style.display = "none";
     registerForm.style.display = "block";
-    registerTab.classList.add("bg-white", "shadow-sm", "text-slate-900");
-    registerTab.classList.remove("bg-transparent", "text-slate-600");
-    loginTab.classList.remove("bg-white", "shadow-sm", "text-slate-900");
-    loginTab.classList.add("bg-transparent", "text-slate-600");
+    registerTab.classList.add("bg-white", "shadow-sm");
+    registerTab.classList.remove("bg-transparent");
+    loginTab.classList.remove("bg-white", "shadow-sm");
+    loginTab.classList.add("bg-transparent");
   }
 }
 
 async function handleAuthSubmit(e, type) {
   e.preventDefault();
-  
-  // Pour l'instant, juste une confirmation
-  if (type === 'login') {
-    const phone = document.getElementById("login-phone").value;
-    if (!phone) {
-      document.getElementById("login-error").innerText = "Veuillez entrer votre numéro.";
-      document.getElementById("login-error").classList.remove("hidden");
-      return;
-    }
-    alert("Connexion avec : +229" + phone);
-  } else {
-    alert("Inscription en cours...");
-  }
+  alert("Formulaire " + type + " - À intégrer avec l'API!");
+  closeAuthModal();
 }
 </script>
 
