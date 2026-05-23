@@ -17,8 +17,18 @@
       <p class="text-sm text-emerald-600 font-bold">🇧🇯 BÉNIN</p>
     </div>
 
+    <!-- Toggle Buttons -->
+    <div class="flex gap-2 bg-slate-100 p-2 rounded-lg">
+      <button onclick="toggleTab('login')" id="login-tab" class="flex-1 py-2 px-4 font-black text-sm rounded-md bg-white text-slate-900 shadow-sm">
+        Connexion
+      </button>
+      <button onclick="toggleTab('register')" id="register-tab" class="flex-1 py-2 px-4 font-black text-sm rounded-md text-slate-600 bg-transparent">
+        Nouveau Compte
+      </button>
+    </div>
+
     <!-- Login Form -->
-    <form onsubmit="handleAuthSubmit(event, 'login')" class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+    <form id="login-form" onsubmit="handleAuthSubmit(event, 'login')" class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
       <h2 class="text-2xl font-black text-slate-900 text-center">Connexion</h2>
 
       <!-- Phone Input -->
@@ -48,18 +58,83 @@
       </button>
     </form>
 
+    <!-- Register Form -->
+    <form id="register-form" style="display:none;" onsubmit="handleAuthSubmit(event, 'register')" class="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+      <h2 class="text-2xl font-black text-slate-900 text-center">Créer un compte</h2>
+
+      <!-- Name Input -->
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900 uppercase">Nom complet *</label>
+        <input 
+          type="text" 
+          id="register-name" 
+          placeholder="Jean-Jacques"
+          required
+          class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+        />
+      </div>
+
+      <!-- Phone Input -->
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900 uppercase">Numéro WhatsApp (+229) *</label>
+        <div class="flex gap-2">
+          <span class="flex items-center px-4 bg-slate-100 rounded-lg font-bold text-slate-600">+229</span>
+          <input 
+            type="tel" 
+            id="register-phone" 
+            placeholder="55256871"
+            maxlength="8"
+            required
+            class="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+          />
+        </div>
+      </div>
+
+      <!-- Email Input -->
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900 uppercase">Email</label>
+        <input 
+          type="email" 
+          id="register-email" 
+          placeholder="exemple@email.com"
+          class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
+        />
+      </div>
+
+      <!-- Role Selection -->
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900 uppercase">Rôle *</label>
+        <select id="register-role" required class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold">
+          <option value="">-- Sélectionner un rôle --</option>
+          <option value="agent">👤 Agent (Collecteur de données)</option>
+          <option value="client">📊 Client (Sponsor de missions)</option>
+        </select>
+      </div>
+
+      <!-- Error Box -->
+      <div id="register-error" class="hidden bg-red-50 border border-red-300 text-red-700 px-4 py-3 rounded-lg text-sm"></div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit" 
+        class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-4 rounded-lg uppercase tracking-widest transition-all shadow-lg active:scale-95"
+      >
+        Créer mon compte
+      </button>
+    </form>
+
     <!-- Demo Accounts -->
     <div class="bg-white rounded-2xl shadow-lg p-6 space-y-4">
       <h3 class="text-sm font-black text-slate-900 uppercase text-center">Accès d'évaluation de démonstration</h3>
       
       <div class="grid grid-cols-1 gap-3">
-        <button onclick="fillAndLogPhone('+22961000001')" class="w-full bg-blue-50 hover:bg-blue-100 border border-blue-300 text-blue-700 font-black py-2 px-4 rounded-lg text-sm transition-all">
+        <button type="button" onclick="fillAndLogPhone('+22961000001')" class="w-full bg-blue-50 hover:bg-blue-100 border border-blue-300 text-blue-700 font-black py-2 px-4 rounded-lg text-sm transition-all">
           👤 Agent (Koffi)
         </button>
-        <button onclick="fillAndLogPhone('+22955000001')" class="w-full bg-purple-50 hover:bg-purple-100 border border-purple-300 text-purple-700 font-black py-2 px-4 rounded-lg text-sm transition-all">
+        <button type="button" onclick="fillAndLogPhone('+22955000001')" class="w-full bg-purple-50 hover:bg-purple-100 border border-purple-300 text-purple-700 font-black py-2 px-4 rounded-lg text-sm transition-all">
           📊 Client Brand
         </button>
-        <button onclick="fillAndLogPhone('+22999999999')" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-black py-2 px-4 rounded-lg text-sm transition-all">
+        <button type="button" onclick="fillAndLogPhone('+22999999999')" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-black py-2 px-4 rounded-lg text-sm transition-all">
           🛡️ Admin
         </button>
       </div>
@@ -69,6 +144,29 @@
 </div>
 
 <script>
+function toggleTab(tab) {
+  const loginForm = document.getElementById("login-form");
+  const registerForm = document.getElementById("register-form");
+  const loginTab = document.getElementById("login-tab");
+  const registerTab = document.getElementById("register-tab");
+
+  if (tab === 'login') {
+    loginForm.style.display = "block";
+    registerForm.style.display = "none";
+    loginTab.classList.add("bg-white", "shadow-sm");
+    loginTab.classList.remove("bg-transparent");
+    registerTab.classList.remove("bg-white", "shadow-sm");
+    registerTab.classList.add("bg-transparent");
+  } else {
+    loginForm.style.display = "none";
+    registerForm.style.display = "block";
+    registerTab.classList.add("bg-white", "shadow-sm");
+    registerTab.classList.remove("bg-transparent");
+    loginTab.classList.remove("bg-white", "shadow-sm");
+    loginTab.classList.add("bg-transparent");
+  }
+}
+
 function fillAndLogPhone(phone) {
   document.getElementById("login-phone").value = phone.replace("+229", "");
   setTimeout(() => {
@@ -80,13 +178,14 @@ function fillAndLogPhone(phone) {
 async function handleAuthSubmit(e, type) {
   e.preventDefault();
 
-  const errBox = document.getElementById("auth-error");
-  errBox.classList.add("hidden");
-
   let payload = {};
   let url = "";
+  let errBox = null;
 
   if (type === 'login') {
+    errBox = document.getElementById("auth-error");
+    errBox.classList.add("hidden");
+
     const phoneInput = document.getElementById("login-phone");
     if (!phoneInput || !phoneInput.value) {
       if (errBox) {
@@ -101,6 +200,34 @@ async function handleAuthSubmit(e, type) {
     
     payload = { phone: formattedPhone };
     url = "/api/connexion";
+
+  } else if (type === 'register') {
+    errBox = document.getElementById("register-error");
+    errBox.classList.add("hidden");
+
+    const name = document.getElementById("register-name").value;
+    const phone = document.getElementById("register-phone").value;
+    const email = document.getElementById("register-email").value;
+    const role = document.getElementById("register-role").value;
+
+    if (!name || !phone || !role) {
+      if (errBox) {
+        errBox.innerText = "Veuillez remplir tous les champs obligatoires.";
+        errBox.classList.remove("hidden");
+      }
+      return;
+    }
+
+    const rawPhone = phone.trim();
+    const formattedPhone = rawPhone.startsWith("+229") ? rawPhone : "+229" + rawPhone;
+
+    payload = { 
+      name: name,
+      phone: formattedPhone,
+      email: email || "",
+      role: role
+    };
+    url = "/api/inscription";
   }
 
   try {
@@ -112,13 +239,13 @@ async function handleAuthSubmit(e, type) {
 
     const data = await response.json();
 
-    if (response.ok) {
+    if (response.ok || data.success) {
       // Success - redirect to dashboard
-      window.location.href = "/dashboard?role=" + (data.role || "agent");
+      window.location.href = "/dashboard";
     } else {
       // Error from API
       if (errBox) {
-        errBox.innerText = data.message || "Erreur de connexion. Veuillez réessayer.";
+        errBox.innerText = data.message || "Erreur. Veuillez réessayer.";
         errBox.classList.remove("hidden");
       }
     }
