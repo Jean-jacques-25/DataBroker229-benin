@@ -15,13 +15,9 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-key-change-in-produ
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///databroker229.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize database
+# Initialize database - WITHOUT creating tables on startup
 from backend import db
 db.init_app(app)
-
-# Create tables
-with app.app_context():
-    db.create_all()
 
 # Import and register API Blueprint
 try:
