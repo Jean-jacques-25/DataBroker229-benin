@@ -300,8 +300,91 @@ function toggleAuthTab(tab) {
 
 async function handleAuthSubmit(e, type) {
   e.preventDefault();
-  alert("Formulaire " + type + " - À intégrer avec l'API!");
-  closeAuthModal();
+async function handleAuthSubmit(e, type) {
+  e.preventDefault();
+
+  if (type === 'login') {
+    const phone = document.getElementById("login-phone").value;
+    const errBox = document.getElementById("login-error");
+
+    if (!phone) {
+      errBox.innerText = "Veuillez entrer votre numéro.";
+      errBox.classList.remove("hidden");
+      return;
+    }
+
+    const formattedPhone = "+229" + phone;
+
+    try {
+      const response = await fetch("/api/connexion", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone: formattedPhone })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        const userRole = data.user.role || "client";
+        const userName = data.user.name || "Utilisateur";
+        
+        localStorage.setItem("databroker_user_phone", formattedPhone);
+        localStorage.setItem("databroker_user_role", userRole);
+        localStorage.setItem("databroker_user_name", userName);
+        sessionStorage.setItem("databroker_current_user", JSON.stringify(data.user));
+
+        window.location.href = "/dashboard/" + userRole;
+      } else {
+        errBox.innerText = data.error || "Erreur de connexion";
+        errBox.classList.remove("hidden");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      errBox.innerText = "Erreur serveur";
+      errBox.classList.remove("hidden");
+    }
+
+  } else if (type === 'register') {
+    const name = document.getElementById("register-name").value;
+    const phone = document.getElementById("register-phone").value;
+    const role = document.getElementById("register-role").value;
+    const errBox = document.getElementById("register-error");
+
+    if (!name || !phone || !role) {
+      errBox.innerText = "Veuillez remplir tous les champs.";
+      errBox.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      const formattedPhone = "+229" + phone;
+      const response = await fetch("/api/inscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          phone: formattedPhone,
+          email: document.getElementById("register-email").value || "",
+          role: role
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert("Compte créé! Veuillez vous connecter.");
+        toggleAuthTab('login');
+        document.getElementById("login-phone").value = phone;
+      } else {
+        errBox.innerText = data.error || "Erreur";
+        errBox.classList.remove("hidden");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      errBox.innerText = "Erreur serveur";
+      errBox.classList.remove("hidden");
+    }
+  }
 }
 </script>
 
